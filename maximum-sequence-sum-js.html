@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Max sequence sum</title>
+</head>
+<body>
+
+<form name = "arrayInput">
+    Enter integers separated by commas <input type="text" name="integers"><br>
+    <input type="submit" onclick="findMaxSum(); return false;">
+</form>
+
+<h3>largest maximum sum will appear below</h3>
+<h1 id="answer"></h1>
+
+<script>
+
+function findMaxSum() {
+    var userInput = document.forms.arrayInput.integers;
+    var userInputValue = userInput.value;
+    userInputValue = userInputValue.split(",");
+    var userInputArray = [];                          // this all gets input and turns into array of numbers
+    for (var i = 0; i < userInputValue.length; i++){
+        userInputArray[i] = Number(userInputValue[i]);
+    };
+
+
+    var largestSum = [0];
+
+for (var i = 0; i < userInputArray.length; i++){
+    var currentSum = userInputArray[i]; // start with integer at index i
+    for (var j = i + 1; j < userInputArray.length; j++){ // we are now going to loop through the remainder of the array
+        currentSum +=  userInputArray[j];    // and add those integers one by one to our sum total
+        if (currentSum > largestSum[0]){
+            largestSum.splice(0, 1, currentSum); // if we get a total larger than the one we already have.....
+        }                                        // stored, we replace the stored value with our new high value
+    }
+}
+
+if (largestSum[0] < 1) {
+    largestSum = "There is no positive sum in this array.";
+}
+console.log(largestSum);
+var answer = document.getElementById("answer");
+answer.innerText = largestSum;
+}
+</script>
+
+
+</body>
+</html>
